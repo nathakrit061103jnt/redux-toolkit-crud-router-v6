@@ -74,19 +74,19 @@ export default function AddProduct() {
   };
 
   const onSubmit = async (data) => {
-    const selectedImage = data.p_image[0];
-    const payload = { ...data, p_image: selectedImage };
-    if (isFileImage(selectedImage)) {
-      try {
+    try {
+      const selectedImage = data.p_image[0];
+      const payload = { ...data, p_image: selectedImage };
+      if (isFileImage(selectedImage)) {
         await dispatch(createProduct(payload));
         await dispatch(getAllProducts());
         await navigate("/");
-      } catch (error) {
-        return Promise.reject(error);
+      } else {
+        setOpenDialog(true);
+        console.log("ไฟล์ที่อัปโหลดไม่ใช่รูปภาพ");
       }
-    } else {
-      setOpenDialog(true);
-      console.log("ไฟล์ที่อัปโหลดไม่ใช่รูปภาพ");
+    } catch (error) {
+      return Promise.reject(error);
     }
   };
 

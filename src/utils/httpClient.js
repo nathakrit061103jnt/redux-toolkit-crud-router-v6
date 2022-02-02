@@ -37,6 +37,7 @@ httpClient.interceptors.response.use(
         message: "NETWORK_CONNECTION_MESSAGE",
       });
     }
+
     return Promise.reject(error);
   }
 );

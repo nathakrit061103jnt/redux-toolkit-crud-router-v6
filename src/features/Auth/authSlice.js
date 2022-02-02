@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import {
   AUTH_REDUCER,
   AUTH_SIGN_IN,
@@ -39,21 +39,8 @@ export const signUp = createAsyncThunk(AUTH_SIGN_UP, async (payload) => {
   }
 });
 
-export const signOut = createAsyncThunk(AUTH_SIGN_OUT, async () => {
-  try {
-    return;
-  } catch (err) {
-    return Promise.reject(err);
-  }
-});
-
-export const reSignIn = createAsyncThunk(AUTH_RE_SIGN_IN, async () => {
-  try {
-    return;
-  } catch (err) {
-    return Promise.reject(err);
-  }
-});
+export const signOut = createAction(AUTH_SIGN_OUT);
+export const reSignIn = createAction(AUTH_RE_SIGN_IN);
 
 const authSlice = createSlice({
   name: AUTH_REDUCER,
@@ -76,7 +63,7 @@ const authSlice = createSlice({
       .addCase(signUp.rejected, (state, action) => {
         state.isSignIn = false;
       })
-      .addCase(signOut.fulfilled, (state, action) => {
+      .addCase(signOut, (state, action) => {
         state.u_email = null;
         state.token = null;
         state.isSignIn = false;
@@ -84,7 +71,7 @@ const authSlice = createSlice({
         removeCookie(EMAIL_KEY);
         setCookie(AUTH_SIGN_IN_STATUS, NOK);
       })
-      .addCase(reSignIn.fulfilled, (state, action) => {
+      .addCase(reSignIn, (state, action) => {
         const signInStatus = getCookie(AUTH_SIGN_IN_STATUS);
         if (signInStatus && signInStatus === "ok") {
           const token = getCookie(TOKEN_KEY);
@@ -92,6 +79,8 @@ const authSlice = createSlice({
           state.u_email = u_email;
           state.token = token;
           state.isSignIn = true;
+        } else {
+          window.open = "signIn";
         }
       });
   },

@@ -46,7 +46,12 @@ export default function App() {
   };
 
   useEffect(async () => {
+    // try {
     dispatch(reSignIn());
+    // } catch (error) {
+    //   console.log("ยังไม่เข้าระบบ");
+    //   return Promise.reject(error);
+    // }
   }, []);
 
   return (

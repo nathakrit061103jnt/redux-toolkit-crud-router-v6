@@ -79,8 +79,6 @@ const authSlice = createSlice({
           state.u_email = u_email;
           state.token = token;
           state.isSignIn = true;
-        } else {
-          window.open = "signIn";
         }
       });
   },

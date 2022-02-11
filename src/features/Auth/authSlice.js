@@ -24,7 +24,7 @@ const initialState = {
 export const signIn = createAsyncThunk(AUTH_SIGN_IN, async (payload) => {
   try {
     const { data } = await AuthDataService.authSingIn(payload);
-    return data;
+    return data.result;
   } catch (err) {
     return Promise.reject(err);
   }
@@ -33,7 +33,7 @@ export const signIn = createAsyncThunk(AUTH_SIGN_IN, async (payload) => {
 export const signUp = createAsyncThunk(AUTH_SIGN_UP, async (payload) => {
   try {
     const { data } = await AuthDataService.authSingUp(payload);
-    return data;
+    return data.result;
   } catch (err) {
     return Promise.reject(err);
   }

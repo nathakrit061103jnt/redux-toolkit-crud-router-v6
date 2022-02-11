@@ -181,8 +181,8 @@ export default function ProductList() {
         <ActionsComponent
           params={params}
           navigate={navigate}
+          dispatch={dispatch} 
           setDeleteId={setDeleteId}
-          dispatch={dispatch}
           handleClickOpen={handleClickOpen}
         />
       ),
@@ -208,6 +208,9 @@ const ActionsComponent = ({
   setDeleteId,
   navigate,
 }) => {
+
+  // React.useMemo(() => first, second);
+
   const { id } = params;
 
   const showProduct = () => {

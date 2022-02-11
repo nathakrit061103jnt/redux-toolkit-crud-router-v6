@@ -10,7 +10,7 @@ import AppBarComponent from "./components/AppBar";
 import DrawerComponent from "./components/Drawer";
 import DashboardComponent from "./components/Dashboard";
 
-import { getCookie, setCookie } from "./utils/cookie";
+import { getCookie } from "./utils/cookie";
 import ProductList from "./features/products/ProductList";
 import SignIn from "./features/Auth/Signln";
 import SignUp from "./features/Auth/SignUp";
@@ -45,14 +45,9 @@ export default function App() {
     setOpen(!open);
   };
 
-  useEffect(async () => {
-    // try {
+  useEffect(() => {
     dispatch(reSignIn());
-    // } catch (error) {
-    //   console.log("ยังไม่เข้าระบบ");
-    //   return Promise.reject(error);
-    // }
-  }, []);
+  }, [dispatch]);
 
   return (
     <Router>
@@ -159,7 +154,9 @@ export default function App() {
 function RequireAuth({ children }) {
   let location = useLocation();
   const signInStatus = getCookie(AUTH_SIGN_IN_STATUS);
-  if (signInStatus === "nok") {
+  if (!signInStatus) {
+    return <Navigate to="/signIn" state={{ from: location }} replace />;
+  } else if (signInStatus === "nok") {
     return <Navigate to="/signIn" state={{ from: location }} replace />;
   }
   return children;

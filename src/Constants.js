@@ -1,12 +1,12 @@
 // unit style
 export const drawerWidth = 240;
 
-export const NODEJS_HEROKU_API_URL =
-  "https://node-api-stock-example-heruku.herokuapp.com";
+export const NODEJS_HEROKU_API_URL = "https://node-api-stock.herokuapp.com";
 
 // server url
 // export const API_URL = "http://localhost:8090";
 export const API_URL = NODEJS_HEROKU_API_URL;
+
 export const IMAGES_URL = `${API_URL}/images`;
 
 // reducer constants

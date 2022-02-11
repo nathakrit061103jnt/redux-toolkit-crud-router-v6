@@ -1,24 +1,30 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
+import {
+  TextField,
+  Button,
+  Grid,
+  Alert,
+  Box,
+  Typography,
+  Avatar,
+} from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
 
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import { signUp } from "./authSlice";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 
 export default function SignUp() {
+  const { auth } = useSelector((state) => state);
+  const { signUpFail } = auth;
+
   const validationSchema = Yup.object().shape({
     u_email: Yup.string()
       .required("Email is required")
@@ -109,6 +115,9 @@ export default function SignUp() {
             </Typography>
           </Grid>
         </Grid>
+        {signUpFail && (
+          <Alert severity="error">อีเมลนี้มีผู้ใช้งานเเล้ว!</Alert>
+        )}
         <Button
           type="submit"
           fullWidth

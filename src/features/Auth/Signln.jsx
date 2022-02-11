@@ -1,26 +1,29 @@
 import React, { useEffect } from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
+import {
+  Grid,
+  Box,
+  Typography,
+  Avatar,
+  Button,
+  TextField,
+  Alert,
+} from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Copyright from "../../components/Copyright";
 
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import { signIn, signOut } from "./authSlice";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 
 export default function SignIn() {
+  const { auth } = useSelector((state) => state);
+  const { signInFail } = auth;
   useEffect(async () => {
     dispatch(signOut());
   }, []);
@@ -115,6 +118,10 @@ export default function SignIn() {
             </Typography>
           </Grid>
         </Grid>
+
+        {signInFail && (
+          <Alert severity="error">อีเมล หรือ รหัสผ่านไม่ถูกต้อง!</Alert>
+        )}
         <Button
           type="submit"
           fullWidth

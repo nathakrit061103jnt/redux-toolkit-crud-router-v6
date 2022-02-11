@@ -19,6 +19,8 @@ const initialState = {
   u_email: null,
   token: null,
   isSignIn: false,
+  signInFail: false,
+  signUpFail: false,
 };
 
 export const signIn = createAsyncThunk(AUTH_SIGN_IN, async (payload) => {
@@ -56,22 +58,30 @@ const authSlice = createSlice({
         state.u_email = u_email;
         state.token = token;
         state.isSignIn = true;
+        state.signInFail = false;
+        state.signUpFail = false;
       })
-      .addCase(signUp.fulfilled, (state, action) => {
+      .addCase(signIn.rejected, (state) => {
+        state.signInFail = true;
+      })
+      .addCase(signUp.fulfilled, (state) => {
         state.isSignIn = false;
+        state.signUpFail = false;
       })
-      .addCase(signUp.rejected, (state, action) => {
+      .addCase(signUp.rejected, (state) => {
         state.isSignIn = false;
+        state.signUpFail = true;
       })
-      .addCase(signOut, (state, action) => {
+      .addCase(signOut, (state) => {
         state.u_email = null;
         state.token = null;
         state.isSignIn = false;
         removeCookie(TOKEN_KEY);
         removeCookie(EMAIL_KEY);
         setCookie(AUTH_SIGN_IN_STATUS, NOK);
+        state.signUpFail = false;
       })
-      .addCase(reSignIn, (state, action) => {
+      .addCase(reSignIn, (state) => {
         const signInStatus = getCookie(AUTH_SIGN_IN_STATUS);
         if (signInStatus && signInStatus === "ok") {
           const token = getCookie(TOKEN_KEY);
@@ -79,6 +89,8 @@ const authSlice = createSlice({
           state.u_email = u_email;
           state.token = token;
           state.isSignIn = true;
+          state.signInFail = false;
+          state.signUpFail = false;
         }
       });
   },

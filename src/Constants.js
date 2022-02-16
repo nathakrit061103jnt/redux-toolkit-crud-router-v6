@@ -1,16 +1,15 @@
 // unit style
 export const drawerWidth = 240;
 
-// export const NODEJS_HEROKU_API_URL =
-//   "http://fibergo-api-stock-pg.herokuapp.com/api/v1";
+export const NODEJS_HEROKU_API_URL = "https://node-api-stock.herokuapp.com";
 
 // server url
-export const API_URL = "http://localhost:9090/api/v1";
-// export const API_URL = NODEJS_HEROKU_API_URL;
+// export const API_URL = "http://localhost:9090/api/v1";
+export const API_URL = NODEJS_HEROKU_API_URL;
 
-// export const IMAGES_URL_NODE = `${API_URL}/images`;
-export const IMAGES_URL_FIBERGO = `http://localhost:9090`;
-export const IMAGES_URL = IMAGES_URL_FIBERGO;
+export const IMAGES_URL_NODE = `${API_URL}/images`;
+// export const IMAGES_URL_FIBERGO = `http://localhost:9090`;
+export const IMAGES_URL = IMAGES_URL_NODE;
 
 // reducer constants
 export const PRODUCT_REDUCER = "products";

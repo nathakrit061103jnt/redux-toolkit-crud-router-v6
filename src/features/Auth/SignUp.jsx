@@ -12,11 +12,8 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 import { Link, useNavigate, useLocation } from "react-router-dom";
-
 import { signUp } from "./authSlice";
-
 import { useDispatch, useSelector } from "react-redux";
-
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";

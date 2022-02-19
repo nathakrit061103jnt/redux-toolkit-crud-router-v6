@@ -40,22 +40,30 @@ export const getAllProducts = createAsyncThunk(PRODUCT_GET_ALL, async () => {
 export const updateProduct = createAsyncThunk(
   PRODUCT_UPDATE,
   async ({ id, payload }) => {
-    const { p_name, p_price, p_count, p_image } = payload;
-    let formData = new FormData();
-    formData.append("p_image", p_image);
-    formData.append("p_name", p_name);
-    formData.append("p_price", p_price);
-    formData.append("p_count", p_count);
-    const { data } = await ProductDataService.update(id, formData);
-    return data;
+    try {
+      const { p_name, p_price, p_count, p_image } = payload;
+      let formData = new FormData();
+      formData.append("p_image", p_image);
+      formData.append("p_name", p_name);
+      formData.append("p_price", p_price);
+      formData.append("p_count", p_count);
+      const { data } = await ProductDataService.update(id, formData);
+      return data;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 );
 
 export const deleteProduct = createAsyncThunk(
   PRODUCT_DELETE,
   async ({ id }) => {
-    const { data } = await ProductDataService.remove(id);
-    return data;
+    try {
+      const { data } = await ProductDataService.remove(id);
+      return data;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 );
 
@@ -66,12 +74,21 @@ const productsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createProduct.fulfilled, (state, action) => {
-        state.push(action.payload);
+        const { payload } = action;
+        const { result } = payload;
+        state.push(result);
       })
       .addCase(getAllProducts.fulfilled, (state, action) => {
         return [...action.payload];
       })
       .addCase(updateProduct.fulfilled, (state, action) => {
+        const { payload } = action;
+        const { result } = payload;
+        const index = state.findIndex((product) => product.id === result.id);
+        state[index] = {
+          ...state[index],
+          ...result,
+        };
         return state;
       })
       .addCase(deleteProduct.fulfilled, (state, action) => {

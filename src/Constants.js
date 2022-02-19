@@ -4,10 +4,13 @@ export const drawerWidth = 240;
 export const NODEJS_HEROKU_API_URL = "https://node-api-stock.herokuapp.com";
 
 // server url
-// export const API_URL = "http://localhost:9090/api/v1";
+// export const API_URL = "http://localhost:8090";
+
 export const API_URL = NODEJS_HEROKU_API_URL;
 
 export const IMAGES_URL_NODE = `${API_URL}/images`;
+// export const IMAGES_URL_NODE_MONGO_DB = `http://localhost:8085/images`;
+
 // export const IMAGES_URL_FIBERGO = `http://localhost:9090`;
 export const IMAGES_URL = IMAGES_URL_NODE;
 

@@ -127,7 +127,6 @@ export default function EditProduct() {
       if (fileStatus) {
         const payload = { ...data, p_image: productById.p_image };
         await dispatch(updateProduct({ id, payload }));
-        await dispatch(getAllProducts());
         await navigate("/");
       } else {
         setOpenDialog(true);

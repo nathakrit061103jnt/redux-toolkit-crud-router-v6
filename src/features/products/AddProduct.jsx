@@ -79,7 +79,6 @@ export default function AddProduct() {
       const payload = { ...data, p_image: selectedImage };
       if (isFileImage(selectedImage)) {
         await dispatch(createProduct(payload));
-        await dispatch(getAllProducts());
         await navigate("/");
       } else {
         setOpenDialog(true);
